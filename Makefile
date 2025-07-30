@@ -1,13 +1,25 @@
 MAKEFLAGS += --no-print-directory
 PROJECT_DIRS := $(wildcard projects/*)
-MKCERT_BINARY := https://dl.filippo.io/mkcert/latest?for=linux/amd64
+
+UNAME_S := $(shell uname -s)
+ARCH := $(shell uname -m)
+
+ifeq ($(UNAME_S),Darwin)
+  ifeq ($(ARCH),arm64)
+    MKCERT_BINARY := https://dl.filippo.io/mkcert/latest?for=darwin/arm64
+  else
+    MKCERT_BINARY := https://dl.filippo.io/mkcert/latest?for=darwin/amd64
+  endif
+else
+  MKCERT_BINARY := https://dl.filippo.io/mkcert/latest?for=linux/amd64
+endif
 
 .env:
 	@echo "[*] Creating .env from .env.example"
 	@cp .env.example .env
 
 include .env
-export $(shell [ -f .env ] && sed 's/=.*//' .env)
+export $(shell [ -f .env ] && grep '=' .env | sed 's/=.*//')
 
 all: .env network bootstrap-cert fetch
 	@docker compose up -d
@@ -34,7 +46,11 @@ bootstrap-cert:
 	@touch bootstrap-cert
 
 bootstrap-deps:
-	@sudo apt install libnss3-tools
+	@if [ "$(UNAME_S)" = "Darwin" ]; then \
+		brew install nss; \
+	else \
+    	sudo apt install libnss3-tools; \
+	fi
 	@touch bootstrap-deps
 
 fetch:
