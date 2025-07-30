@@ -14,6 +14,8 @@ else
   MKCERT_BINARY := https://dl.filippo.io/mkcert/latest?for=linux/amd64
 endif
 
+HOSTS_LINE := "127.0.0.1 welcome.o10r.io ory.o10r.io project.o10r.io hydra.o10r.io hydra-admin.o10r.io hydra-consent.o10r.io"
+
 .env:
 	@echo "[*] Creating .env from .env.example"
 	@cp .env.example .env
@@ -55,6 +57,15 @@ bootstrap-deps:
 
 fetch:
 	git submodule update --init --recursive --remote
+
+hosts:
+	@echo "[*] Adding domains to /etc/hosts if missing"
+	@if ! grep -q "ory.o10r.io" /etc/hosts; then \
+		echo $(HOSTS_LINE) | sudo tee -a /etc/hosts > /dev/null; \
+		echo "✔ Hosts added"; \
+	else \
+		echo "ℹ Hosts already present"; \
+	fi
 
 summary:
 	@echo "Built and launched successfully, check it out 🎈 \n"
