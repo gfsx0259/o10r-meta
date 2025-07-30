@@ -71,12 +71,22 @@ summary:
 	@echo "Built and launched successfully, check it out 🎈 \n"
 	@git submodule foreach "docker compose ps 2> /dev/null || echo \"Possibly, application is not running\""
 
-clean:
-	@echo "Stop docker containers..."
-	@echo "Clear docker volumes..."
-	@(git submodule foreach docker compose down -v > /dev/null 2>&1) && echo "Successfully\n" || echo "It is not possible to call down for some projects, just skip"
-	@echo "Clear projects..."
-	@(git submodule deinit -f . > /dev/null 2>&1) && echo "Successfully\n" || echo "Nothing to clear, just skip"
-	@echo "Clear images..."
-	@(docker rmi $$(docker images --format "{{.Repository}}:{{.Tag}}" | grep 'o10r') > /dev/null 2>&1) && echo "Successfully\n"  || echo "some error"
+clear: clear-containers clear-images clear-projects
 
+clear-containers:
+	@git submodule foreach docker compose down -v && echo "Successfully\n" || echo "It is not possible to call down for some projects, just skip"
+
+clear-images:
+	@for dir in $(PROJECT_DIRS); do \
+		project=$$(basename $$dir); \
+		echo ">>> Removing images for project: $$project"; \
+		ids=$$(docker images -q --filter "label=com.docker.compose.project=$$project"); \
+		if [ -n "$$ids" ]; then \
+			docker rmi -f $$ids; \
+		else \
+			echo "No images found for $$project"; \
+		fi \
+    done
+
+clear-projects:
+	@git submodule deinit -f . && echo "Successfully\n" || echo "Nothing to clear, just skip"
