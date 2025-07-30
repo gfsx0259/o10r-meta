@@ -36,7 +36,7 @@ network:
 		docker network create $(DOCKER_NETWORK_NAME); \
 	fi
 
-bootstrap-cert:
+bootstrap-cert: bootstrap-deps
 	@echo "Install certificate generation utility"
 	@cd cert; curl -q -o mkcert -JLO $(MKCERT_BINARY); chmod +x mkcert; sudo cp mkcert /usr/local/bin/mkcert
 	@echo "Create root certificate authority"
