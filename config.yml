@@ -1,0 +1,6 @@
+tls:
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /tools/certs/_wildcard.o10r.io.pem
+        keyFile: /tools/certs/_wildcard.o10r.io-key.pem

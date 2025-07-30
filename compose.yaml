@@ -1,0 +1,37 @@
+---
+
+services:
+  o10r-proxy:
+    container_name: platform-pp-proxy
+    image: traefik:v3.2
+    command:
+      - --providers.docker=true
+      - --providers.file.directory=/etc/traefik/dynamic
+      - --entrypoints.http.address=:80
+      - --entrypoints.http.forwardedHeaders.insecure
+      - --entrypoints.https.address=:443
+      - --entrypoints.https.forwardedHeaders.insecure
+      - --entrypoints.kratos.address=:4433
+      - --accesslog=true
+      - --api.dashboard=true
+    labels:
+      - traefik.http.routers.traefik_router.rule=Host(`proxy.o10r.io`)
+      - traefik.http.routers.traefik_router.service=api@internal
+      - traefik.http.routers.traefik_router.entrypoints=https
+      - traefik.http.routers.traefik_router.tls=true
+    networks:
+      - dev-o10r-network
+    ports:
+      - "80:80"
+      - "443:443"
+      - "4433:4433"
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config.yml:/etc/traefik/dynamic/config.yml
+      - ./cert:/tools/certs
+
+networks:
+  dev-o10r-network:
+    name: dev-o10r-network
+    external: true
