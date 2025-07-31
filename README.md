@@ -20,7 +20,7 @@ Available applications:
 *  https://proxy.o10r.io Reverse proxy server that provides routing and tls termination
 *  https://ory.o10r.io Auth service
 *  https://welcome.o10r.io SPA Dashboard
-*  https://project.o10r.io Project Service
+*  https://project.o10r.io/docs Project Service Swagger
 
 
 Credentials for any database: **root/secret**
