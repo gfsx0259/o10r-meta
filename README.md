@@ -10,7 +10,7 @@ make
 
 Clear application stack:
 ```bash
-make clean
+make clear
 ```
 
 #### What's next 🎈
