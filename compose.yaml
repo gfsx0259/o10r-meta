@@ -2,7 +2,6 @@
 
 services:
   o10r-proxy:
-    container_name: platform-pp-proxy
     image: traefik:v3.2
     command:
       - --providers.docker=true
