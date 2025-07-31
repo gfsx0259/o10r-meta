@@ -1,12 +1,12 @@
 [submodule "projects/ory"]
 	path = projects/ory
-	url = git@github.com:gfsx0259/o10r-ory.git
+	url = https://github.com/gfsx0259/o10r-ory.git
     branch = main
 [submodule "projects/dashboard"]
 	path = projects/dashboard
-	url = git@github.com:gfsx0259/o10r-dashboard.git
+	url = https://github.com/gfsx0259/o10r-dashboard.git
     branch = main
 [submodule "projects/project-svc"]
 	path = projects/project-svc
-	url = git@github.com:gfsx0259/o10r-project-svc.git
+	url = https://github.com/gfsx0259/o10r-project-svc.git
     branch = main
