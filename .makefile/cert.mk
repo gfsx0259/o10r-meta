@@ -12,15 +12,16 @@ else
 endif
 
 bootstrap-cert: bootstrap-deps
-	@echo "Install certificate generation utility"
+	@echo "[*] Install certificate generation utility"
 	@cd cert; curl -q -o mkcert -JLO $(MKCERT_BINARY); chmod +x mkcert; sudo cp mkcert /usr/local/bin/mkcert
-	@echo "Create root certificate authority"
+	@echo "[*] Create root certificate authority"
 	@mkcert -install
-	@echo "Generate application wildcard certificate"
+	@echo "[*] Generate application wildcard certificate"
 	@cd cert; mkcert "$(APP_WILDCARD_DOMAIN)"
 	@touch bootstrap-cert
 
 bootstrap-deps:
+	@echo "[*] Install mkcert deps"
 	@if [ "$(UNAME_S)" = "Darwin" ]; then \
 		brew install nss; \
 	else \
