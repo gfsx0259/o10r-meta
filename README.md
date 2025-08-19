@@ -21,6 +21,9 @@ Available applications:
 *  https://ory.o10r.io Auth service
 *  https://welcome.o10r.io SPA Dashboard
 *  https://project.o10r.io/docs Project Service Swagger
+*  https://session.o10r.io/docs Project Service Swagger
+*  https://project-cache.o10r.io/docs Cache viewer
+*  https://session-cache.o10r.io/docs Cache viewer
 
 
 Credentials for any database: **root/secret**
