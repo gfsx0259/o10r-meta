@@ -1,16 +1,14 @@
-[submodule "projects/ory"]
-	path = projects/ory
-	url = https://github.com/gfsx0259/o10r-ory.git
-    branch = main
-[submodule "projects/dashboard"]
-	path = projects/dashboard
-	url = https://github.com/gfsx0259/o10r-dashboard.git
-    branch = main
 [submodule "projects/project-svc"]
 	path = projects/project-svc
-	url = https://github.com/gfsx0259/o10r-project-svc.git
+	url = git@github.com:gfsx0259/o10r-project-svc.git
     branch = main
 [submodule "projects/session-svc"]
 	path = projects/session-svc
-	url = https://github.com/gfsx0259/o10r-session-svc.git
+	url = git@github.com:gfsx0259/o10r-session-svc.git
 	branch = main
+[submodule "projects/dashboard"]
+	path = projects/dashboard
+	url = git@github.com:gfsx0259/o10r-dashboard.git
+[submodule "projects/ory"]
+	path = projects/ory
+	url = git@github.com:gfsx0259/o10r-ory.git
