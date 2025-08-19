@@ -10,3 +10,7 @@
 	path = projects/project-svc
 	url = https://github.com/gfsx0259/o10r-project-svc.git
     branch = main
+[submodule "projects/session-svc"]
+	path = projects/session-svc
+	url = https://github.com/gfsx0259/o10r-session-svc.git
+	branch = main
